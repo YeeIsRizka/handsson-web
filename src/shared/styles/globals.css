@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Space Grotesk', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  --color-neo-bg: #f4f4f0;
+  /* Cream background */
+  --color-neo-text: #1a1a1a;
+
+  /* Vibrant brutalist palette */
+  --color-neo-yellow: #FFDE00;
+  --color-neo-red: #FF4949;
+  --color-neo-blue: #0052ff;
+  --color-neo-green: #23C552;
+  --color-neo-purple: #9D4EDD;
+
+  --color-neo-border: #000000;
+}
+
+:root {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-weight: 500;
+
+  color: var(--color-neo-text);
+  background-color: var(--color-neo-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: radial-gradient(var(--color-neo-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@layer utilities {
+  .border-brutal {
+    border: 3px solid var(--color-neo-border);
+  }
+
+  .border-t-brutal {
+    border-top: 3px solid var(--color-neo-border);
+  }
+
+  .border-b-brutal {
+    border-bottom: 3px solid var(--color-neo-border);
+  }
+
+  .border-l-brutal {
+    border-left: 3px solid var(--color-neo-border);
+  }
+
+  .border-r-brutal {
+    border-right: 3px solid var(--color-neo-border);
+  }
+
+  .border-brutal-sm {
+    border: 2px solid var(--color-neo-border);
+  }
+
+  .shadow-brutal {
+    box-shadow: 4px 4px 0px 0px var(--color-neo-border);
+  }
+
+  .shadow-brutal-lg {
+    box-shadow: 8px 8px 0px 0px var(--color-neo-border);
+  }
+
+  .shadow-brutal-sm {
+    box-shadow: 2px 2px 0px 0px var(--color-neo-border);
+  }
+
+  .active-brutal {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px var(--color-neo-border);
+  }
+
+  .active-brutal-sm {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px 0px var(--color-neo-border);
+  }
+}
+
+a {
+  font-weight: 600;
+  color: var(--color-neo-blue);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+a:hover {
+  background-color: var(--color-neo-yellow);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.animate-slideOut {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes floatUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.2);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-15px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+}
+
+.animate-floatUpFade {
+  animation: floatUpFade 1.5s ease-out forwards;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neo-bg);
+  border-left: 3px solid var(--color-neo-border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neo-purple);
+  border: 3px solid var(--color-neo-border);
+  border-right: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neo-yellow);
+}
