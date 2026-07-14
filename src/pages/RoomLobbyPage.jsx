@@ -11,7 +11,8 @@ import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import PlayerCard from "../features/lobby/components/PlayerCard";
 import ActionCard from "../features/lobby/components/ActionCard";
 import SettingsModal from "../features/gameplay/components/SettingsModal";
-import { CheckIcon, LinkIcon, ArrowPathIcon, ClipboardDocumentCheckIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
+import TutorialModal from "../shared/components/ui/TutorialModal";
+import { CheckIcon, LinkIcon, ArrowPathIcon, ClipboardDocumentCheckIcon, Cog6ToothIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { useAudio } from "../shared/context/AudioContext";
 import { useLoading } from "../shared/context/LoadingContext";
 
@@ -31,6 +32,7 @@ function RoomLobbyPage({ onLeave }) {
   const [isModeModalOpen, setIsModeModalOpen] = useState(false);
   const [playerToKick, setPlayerToKick] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
   const isStartingGame = React.useRef(false);
   const { playBgm, pauseBgm } = useAudio();
 
@@ -302,13 +304,22 @@ function RoomLobbyPage({ onLeave }) {
               <DisbandWarningModal />
               <HostDisbandConfirmModal />
             </div>
-            <button
-              onClick={() => setShowSettings(true)}
-              className="bg-white border-brutal hover:bg-gray-200 active:active-brutal-sm p-2 transition-all shadow-brutal-sm"
-              aria-label="Pengaturan"
-            >
-              <Cog6ToothIcon className="w-8 h-8 text-neo-text" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowTutorial(true)}
+                className="bg-white border-brutal hover:bg-gray-200 active:active-brutal-sm p-2 transition-all shadow-brutal-sm"
+                aria-label="Cara Bermain"
+              >
+                <QuestionMarkCircleIcon className="w-8 h-8 text-neo-purple" />
+              </button>
+              <button
+                onClick={() => setShowSettings(true)}
+                className="bg-white border-brutal hover:bg-gray-200 active:active-brutal-sm p-2 transition-all shadow-brutal-sm"
+                aria-label="Pengaturan"
+              >
+                <Cog6ToothIcon className="w-8 h-8 text-neo-text" />
+              </button>
+            </div>
           </header>
 
 
@@ -452,6 +463,10 @@ function RoomLobbyPage({ onLeave }) {
         }}
       />
 
+      <TutorialModal 
+        isOpen={showTutorial}
+        onClose={() => setShowTutorial(false)}
+      />
 
     </main>
   );

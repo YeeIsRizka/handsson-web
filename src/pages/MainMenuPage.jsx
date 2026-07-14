@@ -3,12 +3,14 @@ import { insertCoin, myPlayer } from "playroomkit";
 import Button from "../shared/components/ui/Button";
 import JoinRoomModal from "../features/lobby/components/JoinRoomModal";
 import ProfileSetupModal from "../features/lobby/components/ProfileSetupModal";
+import TutorialModal from "../shared/components/ui/TutorialModal";
 import { useLoading } from "../shared/context/LoadingContext";
 
 function MainMenuPage({ onJoin }) {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingType, setLoadingType] = useState(null);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
   const { showLoading, hideLoading } = useLoading();
 
 
@@ -123,6 +125,18 @@ function MainMenuPage({ onJoin }) {
           >
             Gabung Room
           </Button>
+
+          <div className="w-full h-1 bg-neo-border my-4" />
+          
+          <Button
+            variant="outline"
+            fullWidth
+            onClick={() => setIsTutorialModalOpen(true)}
+            disabled={isLoading}
+            className="text-xl py-4 border-2 border-neo-text shadow-[4px_4px_0px_0px_#000]"
+          >
+            Cara Bermain
+          </Button>
         </div>
       </div>
 
@@ -137,6 +151,11 @@ function MainMenuPage({ onJoin }) {
         onClose={cancelProfileSetup}
         onSave={executePlayroomAction}
         isLoading={isLoading}
+      />
+
+      <TutorialModal 
+        isOpen={isTutorialModalOpen}
+        onClose={() => setIsTutorialModalOpen(false)}
       />
     </main>
   );
