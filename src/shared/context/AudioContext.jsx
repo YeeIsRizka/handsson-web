@@ -8,7 +8,7 @@ export function AudioProvider({ children }) {
     const saved = localStorage.getItem('handson_bgm_volume');
     return saved !== null ? parseFloat(saved) : 0.5;
   });
-  
+
   const [sfxVolume, setSfxVolumeState] = useState(() => {
     const saved = localStorage.getItem('handson_sfx_volume');
     return saved !== null ? parseFloat(saved) : 0.5;
@@ -39,7 +39,7 @@ export function AudioProvider({ children }) {
     const audio = new Audio('/sounds/bgm.mp3');
     audio.loop = true;
 
-    audio.volume = bgmVolume * 0.1;
+    audio.volume = bgmVolume * 0.3;
     bgmAudioRef.current = audio;
 
     return () => {
@@ -66,11 +66,11 @@ export function AudioProvider({ children }) {
 
   useEffect(() => {
     if (bgmAudioRef.current) {
-      bgmAudioRef.current.volume = bgmVolume * 0.1;
+      bgmAudioRef.current.volume = bgmVolume * 0.3;
       if (bgmVolume === 0) {
         bgmAudioRef.current.pause();
       } else if (bgmAudioRef.current.paused && isBgmIntendedToPlayRef.current) {
-        bgmAudioRef.current.play().catch(() => {});
+        bgmAudioRef.current.play().catch(() => { });
       }
     }
   }, [bgmVolume]);
@@ -91,23 +91,23 @@ export function AudioProvider({ children }) {
     if (currentVol === 0) return;
     initAudioCtx();
     const ctx = audioCtxRef.current;
-    
+
     const oscillator = ctx.createOscillator();
     const gainNode = ctx.createGain();
-    
+
     oscillator.type = type;
     oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
-    
+
 
     gainNode.gain.setValueAtTime(0, ctx.currentTime);
 
-    const perceivedVolume = Math.pow(currentVol, 2);
+    const perceivedVolume = currentVol * 0.7;
     gainNode.gain.linearRampToValueAtTime(perceivedVolume * volMultiplier, ctx.currentTime + 0.05);
     gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-    
+
     oscillator.connect(gainNode);
     gainNode.connect(ctx.destination);
-    
+
     oscillator.start(ctx.currentTime);
     oscillator.stop(ctx.currentTime + duration);
   }, [initAudioCtx]);
@@ -120,20 +120,20 @@ export function AudioProvider({ children }) {
 
   const playWordCompleteSfx = useCallback(() => {
 
-    playTone(523.25, 'square', 0.2, 0.5); // C5
-    setTimeout(() => playTone(659.25, 'square', 0.2, 0.5), 100); // E5
-    setTimeout(() => playTone(783.99, 'square', 0.3, 0.5), 200); // G5
-    setTimeout(() => playTone(1046.50, 'square', 0.5, 0.5), 300); // C6
+    playTone(523.25, 'square', 0.2, 0.5);
+    setTimeout(() => playTone(659.25, 'square', 0.2, 0.5), 100);
+    setTimeout(() => playTone(783.99, 'square', 0.3, 0.5), 200);
+    setTimeout(() => playTone(1046.50, 'square', 0.5, 0.5), 300);
   }, [playTone]);
 
   const playCountdownSfx = useCallback(() => {
 
-    playTone(440, 'square', 0.1, 0.5); // A4
+    playTone(440, 'square', 0.1, 0.5);
   }, [playTone]);
 
   const playGameStartSfx = useCallback(() => {
 
-    playTone(880, 'square', 0.4, 0.8); // A5
+    playTone(880, 'square', 0.4, 0.8);
   }, [playTone]);
 
   return (

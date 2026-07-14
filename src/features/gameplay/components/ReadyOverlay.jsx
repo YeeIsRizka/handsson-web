@@ -8,8 +8,8 @@ function ReadyOverlay({ phase, countdown, playersList = [] }) {
   const renderPlayerList = () => {
     if (!playersList || playersList.length === 0) return null;
     return (
-      <div className="absolute bottom-4 left-4 bg-white border-brutal shadow-brutal p-3 z-30 max-w-[200px] flex flex-col gap-2">
-        <div className="text-xs font-black uppercase tracking-wider border-b-2 border-black pb-1 mb-1">
+      <div className="absolute top-4 right-4 bg-white border-brutal shadow-brutal p-3 z-30 max-w-[200px] flex flex-col gap-2">
+        <div className="text-xs font-black uppercase tracking-wider border-b-2 border-black pb-1 mb-1 text-right">
           Status Pemain
         </div>
         {playersList.map((p) => (

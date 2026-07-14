@@ -133,6 +133,7 @@ function SurvivalMode() {
         onHandsDetected={handleHandsDetected}
         isPaused={isPreGame || isFinished || amIEliminated}
         hideGameUI={isPreGame}
+        disableSplitOverlay={amIEliminated || isFinished}
         successSubMessage={`+${currentBonusTime} Detik`}
         timerBar={
           (survivalState?.isStarted && !amIEliminated) ? (

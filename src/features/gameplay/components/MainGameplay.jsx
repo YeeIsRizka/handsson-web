@@ -21,6 +21,7 @@ function MainGameplay({
   timerBar = null,
   cameraOverlay = null,
   hideGameUI = false,
+  disableSplitOverlay = false,
 }) {
   const {
     letters = [],
@@ -55,7 +56,26 @@ function MainGameplay({
 
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [showLetterSuccess, setShowLetterSuccess] = useState(false);
+  const [showSplitOverlay, setShowSplitOverlay] = useState(true);
   const prevIndexRef = useRef(currentIndex);
+  const handTimerRef = useRef(null);
+
+  const handleHandsDetectedWrapper = useCallback((handCount) => {
+    if (handCount > 0) {
+      setShowSplitOverlay(false);
+      if (handTimerRef.current) {
+        clearTimeout(handTimerRef.current);
+        handTimerRef.current = null;
+      }
+    } else {
+      if (!handTimerRef.current) {
+        handTimerRef.current = setTimeout(() => {
+          setShowSplitOverlay(true);
+        }, 3000);
+      }
+    }
+    onHandsDetected?.(handCount);
+  }, [onHandsDetected]);
 
   useEffect(() => {
     if (currentIndex > prevIndexRef.current && currentIndex < letters.length) {
@@ -75,6 +95,12 @@ function MainGameplay({
     setIsCameraReady(true);
     onCameraReady?.();
   }, [onCameraReady]);
+
+  useEffect(() => {
+    return () => {
+      if (handTimerRef.current) clearTimeout(handTimerRef.current);
+    };
+  }, []);
 
   const word = currentWordData?.word || letters.join("");
 
@@ -100,7 +126,7 @@ function MainGameplay({
             <>
               <HandGestureDetector
                 onGestureDetected={onGestureDetected}
-                onHandsDetected={onHandsDetected}
+                onHandsDetected={handleHandsDetectedWrapper}
                 onCameraReady={handleCameraReady}
                 showDebugInfo={false}
                 active={isCameraActive}
@@ -132,13 +158,28 @@ function MainGameplay({
                 </div>
               )}
 
+              {isCameraReady && showSplitOverlay && !disableSplitOverlay && !isTransitioningWord && !showSuccessMessage && (
+                <div className="absolute inset-0 z-10 flex pointer-events-none transition-opacity duration-500">
+                  <div className="w-1/2 h-full border-r-4 border-dashed border-white/50 flex flex-col items-center justify-end pb-12 md:pb-24 bg-black/10">
+                    <div className="bg-white px-3 md:px-6 py-2 md:py-3 border-brutal shadow-brutal-sm font-black text-sm md:text-xl text-neo-text -rotate-3 text-center uppercase">
+                      Tangan Kiri
+                    </div>
+                  </div>
+                  <div className="w-1/2 h-full flex flex-col items-center justify-end pb-12 md:pb-24 bg-black/10">
+                    <div className="bg-white px-3 md:px-6 py-2 md:py-3 border-brutal shadow-brutal-sm font-black text-sm md:text-xl text-neo-text rotate-3 text-center uppercase">
+                      Tangan Kanan
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {isCameraReady && cameraOverlay}
+
               {showLetterSuccess && !showSuccessMessage && (
                 <div className="absolute inset-0 bg-green-500/40 flex items-center justify-center z-10 rounded-xl pointer-events-none">
                   <div className="text-8xl animate-bounce drop-shadow-2xl"><SparklesIcon className="w-20 h-20 text-white" /></div>
                 </div>
               )}
-
-              {isCameraReady && cameraOverlay}
             </>
           )}
 
@@ -149,19 +190,19 @@ function MainGameplay({
 
               <div className="md:hidden w-40 max-w-[160px] pointer-events-auto">
                 <div className="bg-white border-brutal shadow-brutal flex items-center justify-center p-2 relative overflow-hidden aspect-square">
-                    {isLoading ? (
-                      <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-neo-border" />
-                    ) : currentHint?.image_url ? (
-                      <img
-                        src={currentHint.image_url}
-                        alt={currentHint.description || "Petunjuk"}
-                        className="w-full h-full object-contain filter drop-shadow-md"
-                      />
-                    ) : (
-                      <div className="text-7xl font-black text-neo-text">
-                        {hintLetter}
-                      </div>
-                    )}
+                  {isLoading ? (
+                    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-neo-border" />
+                  ) : currentHint?.image_url ? (
+                    <img
+                      src={currentHint.image_url}
+                      alt={currentHint.description || "Petunjuk"}
+                      className="w-full h-full object-contain filter drop-shadow-md"
+                    />
+                  ) : (
+                    <div className="text-7xl font-black text-neo-text">
+                      {hintLetter}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -213,6 +213,7 @@ function BattleMode() {
         onHandsDetected={handleHandsDetected}
         isPaused={isPaused || isGameOver}
         hideGameUI={hideGameUI}
+        disableSplitOverlay={amIEliminated || isGameOver}
         successSubMessage={isHumanFinished ? "Menunggu Lawan..." : "Kata selesai!"}
         timerBar={
           (!isPreGame && !isResult && !isGameOver && !amIEliminated) ? <TimerBar timeProgress={timeProgress} /> : null

@@ -145,6 +145,7 @@ function RaceMode() {
         onHandsDetected={handleHandsDetected}
         isPaused={isPreGame || isFinished}
         hideGameUI={isPreGame}
+        disableSplitOverlay={isFinished}
         successSubMessage={`+${currentWordPoints} Poin`}
         timerBar={
           isStarted ? <TimerBar timeProgress={timeProgress} /> : null
