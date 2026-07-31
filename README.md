@@ -40,7 +40,7 @@ The game supports **real-time multiplayer** via PlayroomKit, allowing players to
 
 | Mode | Description |
 |------|-------------|
-| **🏋️ Training** | Practice spelling BISINDO signs at your own pace with no time pressure. Perfect for beginners. |
+| **🎯 Campaign** | Complete 5 progressive levels in a single run! Challenge increases at each level with shorter timers and disabled hints on Level 5. |
 | **🏁 Race** | Compete to spell the most words within a time limit. Supports bot opponents for solo play. |
 | **💀 Survival** | Spell words before your time runs out — each correct word adds time. Last player standing wins. |
 | **⚔️ Battle** | Round-based PvP combat. Spell faster to deal more damage. Reduce your opponent's HP to zero to win. |
@@ -96,6 +96,7 @@ handson/
 │   ├── app/                # App root, router, and providers
 │   ├── features/
 │   │   ├── battle/         # Battle mode (PvP, HP system, round results)
+│   │   ├── campaign/       # Campaign mode (5-level single-run progression)
 │   │   ├── gameplay/       # Shared gameplay components & hooks
 │   │   │   ├── components/ # MainGameplay, WordDisplay, HintPanel, TimerBar, etc.
 │   │   │   ├── constants/  # Game state enums
@@ -104,8 +105,7 @@ handson/
 │   │   ├── gesture/        # Hand gesture detection & status display
 │   │   ├── lobby/          # Room lobby UI (join, profile setup, player cards)
 │   │   ├── race/           # Race mode (score-based competition)
-│   │   ├── survival/       # Survival mode (time-based elimination)
-│   │   └── training/       # Training mode (free practice)
+│   │   └── survival/       # Survival mode (time-based elimination)
 │   ├── pages/              # Page-level route components
 │   └── shared/
 │       ├── components/     # Reusable UI primitives (Button, Card, Modal, etc.)
