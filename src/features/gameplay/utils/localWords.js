@@ -3,7 +3,7 @@ export const buildWord = (id, word) => ({
   word,
 });
 
-const LOCAL_WORDS = [
+export const LOCAL_WORDS = [
   buildWord("local-1", "BENCI"),
   buildWord("local-2", "DAUN"),
   buildWord("local-3", "FOTO"),

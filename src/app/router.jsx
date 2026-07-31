@@ -25,8 +25,9 @@ function AppRouter() {
           <Route path={routes.mainMenu} element={<HomePage />} />
           <Route path={routes.race} element={<GameplayPage mode="race" />} />
           <Route path={routes.survival} element={<GameplayPage mode="survival" />} />
-          <Route path={routes.training} element={<GameplayPage mode="training" />} />
+          <Route path={routes.campaign} element={<GameplayPage mode="campaign" />} />
           <Route path={routes.battle} element={<GameplayPage mode="battle" />} />
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </LoadingProvider>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { routes } from "../../../shared/constants/routes";
-import { BookOpenIcon, FlagIcon, ClockIcon, BoltIcon, CheckIcon } from "@heroicons/react/24/solid";
+import { TrophyIcon, FlagIcon, ClockIcon, BoltIcon, CheckIcon } from "@heroicons/react/24/solid";
 
 const MODE_ICONS = {
-  training: BookOpenIcon,
+  campaign: TrophyIcon,
   race: FlagIcon,
   survival: ClockIcon,
   battle: BoltIcon,
@@ -11,10 +11,10 @@ const MODE_ICONS = {
 
 export const MODES = [
   {
-    id: "training",
-    title: "Latihan",
-    description: "Belajar dan berlatih bahasa isyarat tanpa batas waktu.",
-    iconId: "training",
+    id: "campaign",
+    title: "Campaign",
+    description: "Selesaikan 5 level berurutan! Tantangan terus meningkat.",
+    iconId: "campaign",
     color: "from-purple-600 to-cyan-600",
     minPlayers: 1,
     maxPlayers: 1,

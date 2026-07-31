@@ -3,10 +3,10 @@ import Modal from "../../../shared/components/ui/Modal";
 import Button from "../../../shared/components/ui/Button";
 import { useAudio } from "../../../shared/context/AudioContext";
 import { useSettings } from "../../../shared/context/SettingsContext";
-import { SpeakerWaveIcon, BellIcon, CheckIcon } from "@heroicons/react/24/solid";
+import { SpeakerWaveIcon, BellIcon, CheckIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { SpeakerWaveIcon as SpeakerWaveOutline } from "@heroicons/react/24/outline";
 
-function SettingsModal({ isOpen, onClose, onEndMatch, endMatchText = "Akhiri Permainan", onExitRoom }) {
+function SettingsModal({ isOpen, onClose, onEndMatch, endMatchText = "Akhiri Permainan", onExitRoom, lockHint = false }) {
   const { bgmVolume, setBgmVolume, sfxVolume, setSfxVolume, playCorrectSfx } = useAudio();
   const { showHint, setShowHint } = useSettings();
 
@@ -37,18 +37,26 @@ function SettingsModal({ isOpen, onClose, onEndMatch, endMatchText = "Akhiri Per
       <div className="p-4 sm:p-8 text-center text-neo-text font-bold">
         <div className="flex flex-col gap-6 text-left">
           <div className="bg-neo-bg border-brutal p-4 shadow-brutal-sm relative">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <div className="relative flex items-center">
-                <input
-                  type="checkbox"
-                  checked={showHint}
-                  onChange={(e) => setShowHint(e.target.checked)}
-                  className="w-6 h-6 border-brutal appearance-none bg-white checked:bg-neo-blue cursor-pointer"
-                />
-                {showHint && (
-                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                    <CheckIcon className="w-4 h-4 text-white" />
-                  </span>
+            <label className={`flex items-center gap-3 ${lockHint ? "cursor-not-allowed" : "cursor-pointer"}`}>
+              <div className="relative flex items-center justify-center w-6 h-6 border-brutal bg-white flex-shrink-0">
+                {lockHint ? (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <LockClosedIcon className="w-4 h-4 text-gray-700" />
+                  </div>
+                ) : (
+                  <>
+                    <input
+                      type="checkbox"
+                      checked={showHint}
+                      onChange={(e) => setShowHint(e.target.checked)}
+                      className="w-full h-full appearance-none bg-white checked:bg-neo-blue cursor-pointer"
+                    />
+                    {showHint && (
+                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                        <CheckIcon className="w-4 h-4 text-white" />
+                      </span>
+                    )}
+                  </>
                 )}
               </div>
               <div>

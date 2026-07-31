@@ -4,7 +4,7 @@ import { useAudio } from "../../../shared/context/AudioContext";
 import SettingsModal from "./SettingsModal";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 
-function GameplayHeader({ title, onEndMatch, endMatchText = "Akhiri Permainan" }) {
+function GameplayHeader({ title, onEndMatch, endMatchText = "Akhiri Permainan", lockHint = false }) {
   const [showSettings, setShowSettings] = useState(false);
   const { disbandLobby, DisbandWarningModal, HostDisbandConfirmModal } = useHostDisband();
   const { playBgm, pauseBgm } = useAudio();
@@ -50,6 +50,7 @@ function GameplayHeader({ title, onEndMatch, endMatchText = "Akhiri Permainan" }
         onEndMatch={onEndMatch}
         endMatchText={endMatchText}
         onExitRoom={disbandLobby}
+        lockHint={lockHint}
       />
 
       <DisbandWarningModal />

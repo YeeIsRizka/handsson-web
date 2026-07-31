@@ -3,6 +3,6 @@ export const routes = {
   roomLobby: "/r/:roomId",
   race: "/race",
   survival: "/survival",
-  training: "/training",
+  campaign: "/campaign",
   battle: "/battle",
 };

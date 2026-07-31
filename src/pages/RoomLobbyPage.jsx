@@ -42,7 +42,7 @@ function RoomLobbyPage({ onLeave }) {
   const humanPlayersState = usePlayersList(true);
   const [bots, setBots] = useMultiplayerState("bots", []);
   const [botCounter, setBotCounter] = useMultiplayerState("botCounter", 1);
-  const [selectedModes, setSelectedModes] = useMultiplayerState("selectedModes", ["training"]);
+  const [selectedModes, setSelectedModes] = useMultiplayerState("selectedModes", ["campaign"]);
   const [gameStarted, setGameStarted] = useMultiplayerState("gameStarted", null);
 
 
@@ -162,7 +162,7 @@ function RoomLobbyPage({ onLeave }) {
           const modeDef = MODES.find(m => m.id === modeId);
           return modeDef && newPlayerCount >= (modeDef.minPlayers || 1) && newPlayerCount <= (modeDef.maxPlayers || 4);
         });
-        setSelectedModes(supported.length === 0 ? (newPlayerCount === 1 ? ["training"] : ["race", "survival", "battle"]) : supported);
+        setSelectedModes(supported.length === 0 ? (newPlayerCount === 1 ? ["campaign"] : ["race", "survival", "battle"]) : supported);
       }
     } else {
 
@@ -171,7 +171,7 @@ function RoomLobbyPage({ onLeave }) {
         return modeDef && totalPlayers >= (modeDef.minPlayers || 1) && totalPlayers <= (modeDef.maxPlayers || 4);
       });
       if (supported.length !== selectedModes.length) {
-        setSelectedModes(supported.length === 0 ? (totalPlayers === 1 ? ["training"] : ["race", "survival", "battle"]) : supported);
+        setSelectedModes(supported.length === 0 ? (totalPlayers === 1 ? ["campaign"] : ["race", "survival", "battle"]) : supported);
       }
     }
   }, [amIHost, humanPlayersState.length, bots, selectedModes, setBots, setSelectedModes]);
